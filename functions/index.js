@@ -4,7 +4,6 @@ import fs from "fs";
 import path from "path";
 import multer from "multer";
 import { fileURLToPath } from "url";
-// REMOVED: import { onRequest } from "firebase-functions/v2/https"; // Not needed for Render
 
 // For __dirname support in ES modules
 const __filename = fileURLToPath(import.meta.url);
@@ -16,14 +15,36 @@ const PORT = process.env.PORT || 3000;
 // ----------------------------
 
 const app = express();
-// Enable CORS for frontend access
-app.use(cors());
+
+// ----------------------------------------------------
+// !!! CRITICAL FIX: EXPLICIT CORS CONFIGURATION !!!
+// Add your live Firebase Hosting URL to the allowed origins.
+// ----------------------------------------------------
+const allowedOrigins = [
+    'https://cloudnotes-df49f.web.app', // Your Live Frontend URL (MUST BE ADDED)
+    'http://localhost:3000',           // For Local Testing
+    'https://cloudnotes-ll4q.onrender.com' // Your Render Backend URL (Good practice)
+];
+
+app.use(cors({
+    origin: function (origin, callback) {
+        // Allow requests with no origin (like mobile apps or local file access)
+        if (!origin) return callback(null, true); 
+        if (allowedOrigins.indexOf(origin) === -1) {
+            const msg = 'The CORS policy for this site does not allow access from the specified Origin.';
+            return callback(new Error(msg), false);
+        }
+        return callback(null, true);
+    },
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+    credentials: true, // Allow cookies/authorization headers
+    optionsSuccessStatus: 204
+}));
+// ----------------------------------------------------
+
 app.use(express.json());
 
 // File storage setup
-// Note: When deploying to Render, files saved this way are temporary
-// and will be lost if the server restarts. This is acceptable for a 
-// simple project but not for persistent production data.
 const uploadsDir = path.join(__dirname, "uploads");
 if (!fs.existsSync(uploadsDir)) fs.mkdirSync(uploadsDir);
 
@@ -155,5 +176,3 @@ app.use("/uploads", express.static(uploadsDir));
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
 });
-
-// REMOVED: export const api = onRequest(app); // No longer needed
