@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cloud Notes | Dashboard</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body class="dashboard-page">
+  <header class="dashboard-header">
+    <h2>☁️ Cloud Notes</h2>
+    <button id="logoutBtn" class="logout">Logout</button>
+  </header>
+
+  <main class="dashboard-container">
+    <section class="add-note">
+      <h3>Add a Note</h3>
+      <input type="text" id="title" placeholder="Note title" />
+      <textarea id="content" placeholder="Note content..."></textarea>
+      <input type="file" id="fileInput" />
+      <button id="addNoteBtn">Add Note</button>
+      <p id="statusMsg"></p>
+    </section>
+
+    <section class="notes-section">
+      <h3>Your Notes</h3>
+      <div id="notes" class="notes-grid"></div>
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>

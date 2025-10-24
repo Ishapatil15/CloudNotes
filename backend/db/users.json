@@ -1,0 +1,52 @@
+[
+  {
+    "username": "isha",
+    "email": "isha@example.com",
+    "password": "Isha@1234"
+  },
+  {
+    "username": "rohan",
+    "email": "rohan@example.com",
+    "password": "Rohan@123"
+  },
+  {
+    "username": "priya",
+    "email": "priya@example.com",
+    "password": "Priya@1234"
+  },
+  {
+    "username": "amit",
+    "email": "amit@example.com",
+    "password": "Amit@1234"
+  },
+  {
+    "username": "sneha",
+    "email": "sneha@example.com",
+    "password": "Sneha@1234"
+  },
+  {
+    "username": "ankit",
+    "email": "ankit@example.com",
+    "password": "Ankit@123"
+  },
+  {
+    "username": "neha",
+    "email": "neha@example.com",
+    "password": "Neha@1234"
+  },
+  {
+    "username": "manish",
+    "email": "manish@example.com",
+    "password": "Manish@123"
+  },
+  {
+    "username": "tanya",
+    "email": "tanya@example.com",
+    "password": "Tanya@1234"
+  },
+  {
+    "username": "rahul",
+    "email": "rahul@example.com",
+    "password": "Rahul@123"
+  }
+]
