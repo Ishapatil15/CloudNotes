@@ -1,6 +1,6 @@
 // 🌐 Base URL of your deployed Render Service
 // *** IMPORTANT: REPLACE THIS WITH YOUR ACTUAL RENDER URL ***
-const BASE_URL = "https://YOUR-RENDER-SERVICE-NAME.onrender.com"; 
+const BASE_URL = "https://cloudnotes-ll4q.onrender.com"; 
 // Note: We removed the Firebase-specific path (us-central1-cloudnotes-df49f.cloudfunctions.net/api)
 // and now point directly to the base URL of your Express server.
 
