@@ -8,7 +8,6 @@ async function handleLogin(event) {
         event.preventDefault();
     }
 
-    // Get input values using the correct IDs from index.html
     const emailInput = document.getElementById("username").value; 
     const passwordInput = document.getElementById("password").value;
 
@@ -36,7 +35,7 @@ async function handleLogin(event) {
         }
     } catch (error) {
         console.error("Fetch Error during Login:", error);
-        alert("An error occurred. Check the browser console. Did you Hard Reload?");
+        alert("A network error occurred. Please try Hard Reloading the page (Ctrl/Cmd+Shift+R).");
     }
 }
 
@@ -47,7 +46,7 @@ async function handleSignup(event) {
     
     const usernameInput = document.getElementById("username").value; 
     const passwordInput = document.getElementById("password").value;
-    const emailInput = usernameInput; // Using username as email for simplicity
+    const emailInput = usernameInput; 
 
     if (!usernameInput || !passwordInput) {
         alert("Please enter both username and password.");
@@ -58,7 +57,7 @@ async function handleSignup(event) {
         const res = await fetch(`${BASE_URL}/signup`, {
             method: "POST",
             headers: { 
-                "Content-Type": "application/json" // Crucial for CORS validation
+                "Content-Type": "application/json" 
             },
             body: JSON.stringify({ username: usernameInput, email: emailInput, password: passwordInput })
         });
@@ -68,7 +67,7 @@ async function handleSignup(event) {
         if (res.ok) window.location.href = "index.html";
     } catch (error) {
         console.error("Fetch Error during Signup:", error);
-        alert("An error occurred. Did you push and deploy the CORS fix to Render?");
+        alert("A network error occurred. Please check the browser console.");
     }
 }
 
@@ -79,27 +78,25 @@ function initializeIndexPage() {
     const loginButton = document.getElementById('loginBtn');
     if (loginButton) {
         loginButton.addEventListener('click', handleLogin);
-    } else {
-        console.error("Login button (id='loginBtn') not found.");
-    }
+    } 
 
     const signupButton = document.getElementById('signupBtn');
     if (signupButton) {
         signupButton.addEventListener('click', handleSignup);
-    } else {
-        console.error("Sign Up button (id='signupBtn') not found.");
-    }
+    } 
 }
 
 function initializeDashboardPage() {
     loadNotes();
     
-    const addNoteForm = document.getElementById('add-note-form'); // Assuming ID is 'add-note-form'
-    if (addNoteForm) {
-        addNoteForm.addEventListener('submit', addNote);
-    }
-    
-    const logoutButton = document.getElementById('logoutBtn'); // Assuming ID is 'logoutBtn'
+    // Attaches listener to the Add Note button using its correct ID: addNoteBtn
+    const addNoteButton = document.getElementById('addNoteBtn');
+    if (addNoteButton) {
+        addNoteButton.addEventListener('click', addNote);
+    } 
+
+    // Attaches listener for the Logout button
+    const logoutButton = document.getElementById('logoutBtn'); 
     if (logoutButton) {
         logoutButton.addEventListener('click', logout);
     }
@@ -123,11 +120,18 @@ function logout() {
 }
 
 async function addNote(event) {
-    event.preventDefault();
+    // Crucial: we prevent default form submission/button behavior
+    if (event && event.preventDefault) { 
+        event.preventDefault();
+    }
+    
     const username = localStorage.getItem("username");
-    const title = document.getElementById("note-title").value;
-    const content = document.getElementById("note-content").value;
-    const file = document.getElementById("note-file").files[0];
+    
+    // --- CORRECTED INPUT IDs matching dashboard.html: title, content, fileInput ---
+    const title = document.getElementById("title").value;
+    const content = document.getElementById("content").value;
+    const file = document.getElementById("fileInput").files[0];
+    // -----------------------------------------------------------------------------
 
     const formData = new FormData();
     formData.append("username", username);
